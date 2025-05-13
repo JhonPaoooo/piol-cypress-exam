@@ -46,6 +46,8 @@ describe('Verify Registration and Login for Taph Quiz App', { testIsolation: fal
         cy.get('[data-testid="login-button"]').should('be.visible').click();
         cy.wait(5000)
         cy.contains('Browse Topics').should('be.visible');
+        cy.contains('Log out').should('be.visible');
+
         cy.clearCookies();
         cy.clearLocalStorage();
         cy.reload();
@@ -57,6 +59,7 @@ describe('Verify Registration and Login for Taph Quiz App', { testIsolation: fal
         cy.get('[data-testid="login-button"]').should('be.visible').click();
         cy.wait(5000)
         cy.contains('Manage Topics').should('be.visible');
+        cy.contains('Log out').should('be.visible');
     });
 
     // Bonus - Sad Path
@@ -69,5 +72,14 @@ describe('Verify Registration and Login for Taph Quiz App', { testIsolation: fal
         cy.get('#role-user').click();
         cy.get('button').should('contain', 'Register').click();
         cy.contains('User already registered').should('be.visible');
+    });
+    it('Verify Registration without inputting a data on the mandatory field', () => {
+        cy.visit('/register');
+        cy.get('#role-user').click();
+        cy.get('button').should('contain', 'Register').click();
+        cy.contains('Username must be at least 3 characters').should('be.visible');
+        cy.contains('Please enter a valid email').should('be.visible'); 
+        cy.contains('Password must be at least 6 characters').should('be.visible'); 
+        
     });
 });
