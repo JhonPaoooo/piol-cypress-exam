@@ -12,7 +12,7 @@ describe('Verify Registration and Login for Taph Quiz App', { testIsolation: fal
 
         roles.forEach((role) => {
             const user = {
-                username: faker.internet.userName(),
+                username: faker.internet.username(),
                 fakeEmail: faker.internet.email(),
                 password: faker.internet.password(),
             };
@@ -25,6 +25,8 @@ describe('Verify Registration and Login for Taph Quiz App', { testIsolation: fal
 
             cy.visit('/register');
             cy.register(user);
+            cy.get('#role-user').should('be.visible').and('not.be.disabled')
+            cy.get('#role-quiz-master').should('be.visible').and('not.be.disabled')
             cy.get(role).click();
             cy.get('button').should('contain', 'Register').click();
             cy.wait(4000);
