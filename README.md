@@ -91,3 +91,5 @@ In the Cypress window:
 - Go to terminal
 
 - Type "npx cypress open" to open the cypress
+
+- Test the spec file

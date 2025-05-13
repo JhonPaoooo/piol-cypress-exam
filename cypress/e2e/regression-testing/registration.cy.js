@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Verify Register while checkout', { testIsolation: false }, () => {
+describe('Verify Registration and Login for Taph Quiz App', { testIsolation: false }, () => {
     let regularUser, quizMaster;
 
     before(() => {
@@ -27,7 +27,6 @@ describe('Verify Register while checkout', { testIsolation: false }, () => {
             cy.register(user);
             cy.get(role).click();
             cy.get('button').should('contain', 'Register').click();
-
             cy.wait(4000);
             cy.get('.mb-6 > .text-3xl').should('contain', 'Sign in to your account');
 
@@ -40,24 +39,25 @@ describe('Verify Register while checkout', { testIsolation: false }, () => {
     it('Verify newly created account can successfully log in and access appropriate URL', () => {
         // Regular User login
         cy.visit('/login');
-        cy.get('[data-testid="input-username"]').type(regularUser.username);
-        cy.get('[data-testid="input-password"]').type(regularUser.password);
-        cy.get('[data-testid="login-button"]').click();
+        cy.get('[data-testid="input-username"]').should('be.visible').type(regularUser.username);
+        cy.get('[data-testid="input-password"]').should('be.visible').type(regularUser.password);
+        cy.get('[data-testid="login-button"]').should('be.visible').click();
         cy.wait(5000)
-        cy.contains('Browse Topics').should('be.visible');  
+        cy.contains('Browse Topics').should('be.visible');
         cy.clearCookies();
         cy.clearLocalStorage();
         cy.reload();
 
         // Quiz Master login
         cy.visit('/login');
-        cy.get('[data-testid="input-username"]').type(quizMaster.username);
-        cy.get('[data-testid="input-password"]').type(quizMaster.password);
-        cy.get('[data-testid="login-button"]').click();
+        cy.get('[data-testid="input-username"]').should('be.visible').type(quizMaster.username);
+        cy.get('[data-testid="input-password"]').should('be.visible').type(quizMaster.password);
+        cy.get('[data-testid="login-button"]').should('be.visible').click();
         cy.wait(5000)
-        cy.contains('Manage Topics').should('be.visible');  
+        cy.contains('Manage Topics').should('be.visible');
     });
-        // Bonus - Sad Path
+
+    // Bonus - Sad Path
     it('Verify Username is already taken', () => {
         cy.visit('/register');
         cy.get('#username').should('be.visible').type(regularUser.username)
@@ -65,7 +65,7 @@ describe('Verify Register while checkout', { testIsolation: false }, () => {
         cy.get('#password').should('be.visible').type(regularUser.password)
         cy.get('#confirmPassword').should('be.visible').type(regularUser.password)
         cy.get('#role-user').click();
-        cy.get(':nth-child(6) > .w-full').click();
+        cy.get('button').should('contain', 'Register').click();
         cy.contains('User already registered').should('be.visible');
     });
 });
