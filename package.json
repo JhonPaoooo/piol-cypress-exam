@@ -1,0 +1,24 @@
+{
+  "name": "piol-cypress-exam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "exam": "npx cypress open --config-file 'cypress/e2e/regression-testing' --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhonPaoooo/piol-cypress-exam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JhonPaoooo/piol-cypress-exam/issues"
+  },
+  "homepage": "https://github.com/JhonPaoooo/piol-cypress-exam#readme",
+  "devDependencies": {
+    "cypress": "^14.3.3"
+  }
+}
